@@ -1,2 +1,2 @@
-# spengine
-VR space simulation game
+# Spengine
+VR space simulation game using Unity 3D
