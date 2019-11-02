@@ -7,7 +7,7 @@ public class GamepadMovement : MonoBehaviour
     // Start is called before the first frame update
     private GameObject player;
     private Vector3 movementVector;
-    private float movementSpeed = 3.0f;
+    private float movementSpeed = 5.0f;
 
     void Start()
     {
@@ -20,8 +20,11 @@ public class GamepadMovement : MonoBehaviour
         movementVector.x = Input.GetAxis("LeftJoyStickX") * movementSpeed;
         movementVector.z = Input.GetAxis("LeftJoyStickY") * movementSpeed;
 
-        player.transform.Translate(Vector3.forward * movementVector.z * Time.deltaTime);
-        player.transform.Translate(Vector3.right * movementVector.x * Time.deltaTime);
+        player.transform.Translate(movementVector * Time.deltaTime);
+
+
+
+        //player.transform.Translate(Vector3.right * movementVector.x * Time.deltaTime);
 
         /*
         if (Input.GetKey(KeyCode.UpArrow)) {
