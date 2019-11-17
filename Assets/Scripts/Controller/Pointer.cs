@@ -14,6 +14,8 @@ public class Pointer : MonoBehaviour
     private Transform m_CurrentOrigin = null;
     private GameObject m_CurrentObject = null;
 
+    public GameObject Player;
+
     private void Awake()
     {
         PlayerEvents.OnControllerSource += UpdateOrigin;
@@ -23,6 +25,7 @@ public class Pointer : MonoBehaviour
     public void Start()
     {
         SetLineColor();
+        Player = GameObject.FindWithTag("Player");
     }
 
     private void OnDestroy()
@@ -78,7 +81,6 @@ public class Pointer : MonoBehaviour
         {
             m_LineRenderer.enabled = true;
         }
-
     }
 
     private GameObject UpdatePointerStatus()
@@ -122,6 +124,9 @@ public class Pointer : MonoBehaviour
     {
         if (!m_CurrentObject)
         {
+            Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
+            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, m_Distance);
+
             return;
         }
 
