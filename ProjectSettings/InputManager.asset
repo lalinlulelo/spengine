@@ -150,8 +150,8 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: LeftJoyStickX
-    descriptiveName: LeftJoyStickX
+    m_Name: Horizontal
+    descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -166,8 +166,8 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: LeftJoyStickY
-    descriptiveName: LeftJoyStickY
+    m_Name: Vertical
+    descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
