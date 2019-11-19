@@ -102,7 +102,9 @@ public class Pointer : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(m_CurrentOrigin.position, m_CurrentOrigin.forward);
-        Physics.Raycast(ray, out hit, m_Distance, layer);
+        //
+        Physics.Raycast(ray, out hit, m_Distance*1000, layer);
+        //
 
         return hit;
     }
@@ -122,6 +124,7 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTouchpadDown()
     {
+        //If I don't point any object just teleport 10 Units forward
         if (!m_CurrentObject)
         {
             Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
@@ -130,7 +133,11 @@ public class Pointer : MonoBehaviour
             return;
         }
 
-        Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
-        interactable.Pressed();
+        //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
+        //interactable.Pressed();
+
+        //If I click on one object, then teleport to this object
+        Vector3 endPosition2 = m_CurrentObject.transform.position + Vector3.back * 3;
+        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance*1000);
     }
 }
