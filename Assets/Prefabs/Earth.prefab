@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6863555551080212460}
   m_Layer: 0
   m_Name: Earth
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,8 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6863555551080212460}
+  Body: {fileID: 0}
   tf: {fileID: 6863555551080212457}
-  initialVelocity: -15
+  initialVelocity: {x: -8, y: 0, z: 0}
   gravManager: {fileID: 0}
 --- !u!54 &6863555551080212460
 Rigidbody:
