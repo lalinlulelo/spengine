@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class GravityManager : MonoBehaviour
 {
-    private static Dictionary<Gravity, float> bodies;
+    private static List<Gravity> bodies;
     private static bool needsUpdate = false;
 
     public void AddBody(Gravity body, float mass)
     {
         if (bodies == null)
         {
-            bodies = new Dictionary<Gravity, float>();
+            bodies = new List<Gravity>();
         }
-        bodies.Add(body, mass);
+        bodies.Add(body);
         needsUpdate = true;
     }
 
@@ -26,9 +26,7 @@ public class GravityManager : MonoBehaviour
 
     private void SortBodies()
     {
-        foreach (var item in bodies.OrderByDescending(key => key.Value))
-        {
-        }
+        bodies = bodies.OrderByDescending(key => key.rb.mass).ToList();
     }
 
     void FixedUpdate()
@@ -36,7 +34,79 @@ public class GravityManager : MonoBehaviour
         if (needsUpdate)
         {
             SortBodies();
+            InitOrbits();
+            CheckHillSpheres();
+            needsUpdate = false;
         }
     }
 
+    private void InitOrbits()
+    {
+        Gravity star = bodies.First();
+        foreach (Gravity body in bodies)
+        {
+            if (body.Equals(star))
+            {
+                if (bodies.Count < 2)
+                {
+                    Debug.LogError("At least 2 bodies are required to perform simulations");
+                    return;
+                }
+                else
+                {
+                    body.Body = bodies.ElementAt(1);
+                }
+            }
+            else
+            {
+                body.Body = star;
+            }
+            body.SemiMajor = CalculateSemiMajor(body);
+        }
+    }
+
+    private void CheckHillSpheres()
+    {
+        foreach (Gravity body1 in bodies)
+        {
+            foreach (Gravity body2 in bodies)
+            {
+                if (!body1.Equals(body2))
+                {
+                    if (IsInHillSphere(body1, body2))
+                    {
+                        body1.Body = body2;
+                        body1.SemiMajor = CalculateSemiMajor(body1);
+                    }
+                }
+            }
+            
+        }
+    }
+
+    public static bool IsInHillSphere(Gravity body1, Gravity body2)
+    {
+        float semiMajorAxis = body1.SemiMajor;
+        float smallMass;
+        float largeMass;
+        largeMass = body1.rb.mass;
+        smallMass = body2.rb.mass;
+        
+        float hillRadiusCubed = Mathf.Pow(semiMajorAxis, 3) * (smallMass / (3 * largeMass));
+        float distance = Vector3.Distance(body1.transform.position, body2.transform.position);
+        if (Mathf.Pow(distance, 3) < hillRadiusCubed)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static float CalculateSemiMajor(Gravity body1)
+    {
+        Gravity body2 = body1.Body;
+        float orbitDistance = Vector3.Distance(body1.transform.position, body2.transform.position);
+        float semiMajor = body1.rb.velocity.sqrMagnitude / (2 * Constants.gravityConstant * body2.rb.mass) + 1 / orbitDistance;
+        semiMajor = (1 / semiMajor) / 2;
+        return semiMajor;
+    }
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 public class Gravity : MonoBehaviour
 {
     public Rigidbody rb;
-    public Gravity body;
-    public float initialVelocity;
+    public Gravity Body;
+    public Transform tf;
+    public Vector3 initialVelocity;
     public GravityManager gravManager;
 
-    const float gravityConstant = 1;
-
     private Vector3 gravity;
-    private Vector3 velocity;
+    public Vector3 Velocity { get; set; }
+    public float SemiMajor { get; set; }
 
     void OnEnable()
     {
@@ -26,20 +26,35 @@ public class Gravity : MonoBehaviour
 
     void Start()
     {
-        rb.velocity = new Vector3(initialVelocity, 0, 0);
+        //rb.velocity = new Vector3(initialVelocity, 0, 0);
+        rb.velocity = initialVelocity;
+        SemiMajor = 0;
     }
 
     void FixedUpdate()
     {
-        gravity = body.GetGravity(rb.worldCenterOfMass);
-        velocity = rb.velocity;
-        velocity += gravity * Time.fixedDeltaTime;
-        rb.velocity = velocity;
+        if (Body == null)
+        {
+            return;
+        }
+        UpdateGravity(Body);
+        if (!Body.Body.Equals(this))
+        {
+            UpdateGravity(Body.Body);
+        }
+    }
+
+    private void UpdateGravity(Gravity target)
+    {
+        gravity = target.GetGravity(rb.worldCenterOfMass);
+        Velocity = rb.velocity;
+        Velocity += gravity * Time.fixedDeltaTime;
+        rb.velocity = Velocity;
     }
 
     public Vector3 GetGravity(Vector3 attract)
     {
-        Vector2 delta = transform.position - attract;
-        return delta.normalized * ((rb.mass * gravityConstant) / delta.sqrMagnitude);
+        Vector3 delta = transform.position - attract;
+        return delta.normalized * ((rb.mass * Constants.gravityConstant) / delta.sqrMagnitude);
     }
 }

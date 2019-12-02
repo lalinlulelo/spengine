@@ -288,7 +288,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -80}
+  m_LocalPosition: {x: 0, y: 1, z: -120}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -354,10 +354,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6863555551080212463, guid: 070acb1b51efaf94d865031c8aed62e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Moon
+      objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
@@ -367,7 +372,7 @@ PrefabInstance:
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
@@ -412,17 +417,17 @@ PrefabInstance:
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212459, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
@@ -442,17 +447,22 @@ PrefabInstance:
     - target: {fileID: 6863555551080212461, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: initialVelocity.x
-      value: -1
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212461, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: initialVelocity.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6863555551080212461, guid: 070acb1b51efaf94d865031c8aed62e6,
+        type: 3}
+      propertyPath: initialVelocity.y
+      value: -1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212460, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_Mass
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 070acb1b51efaf94d865031c8aed62e6, type: 3}
@@ -471,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 2796113993391312341, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2796113993391312339, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
@@ -481,7 +491,7 @@ PrefabInstance:
     - target: {fileID: 2796113993391312339, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2796113993391312339, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
@@ -536,12 +546,17 @@ PrefabInstance:
     - target: {fileID: 2796113993391312343, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
       propertyPath: initialVelocity
-      value: 10
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796113993391312343, guid: 034a28997fff9014f83587aaa8e904c5,
+        type: 3}
+      propertyPath: initialVelocity.x
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2796113993391312342, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
       propertyPath: m_Mass
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 034a28997fff9014f83587aaa8e904c5, type: 3}
@@ -556,6 +571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sun
+      objectReference: {fileID: 0}
+    - target: {fileID: 785644704418028279, guid: 58f83d22447b7174796f45b642c82603,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 785644704418028273, guid: 58f83d22447b7174796f45b642c82603,
         type: 3}
@@ -620,6 +640,11 @@ PrefabInstance:
     - target: {fileID: 785644704418028277, guid: 58f83d22447b7174796f45b642c82603,
         type: 3}
       propertyPath: initialVelocity
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 785644704418028277, guid: 58f83d22447b7174796f45b642c82603,
+        type: 3}
+      propertyPath: initialVelocity.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 785644704418028276, guid: 58f83d22447b7174796f45b642c82603,
@@ -640,6 +665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Earth
+      objectReference: {fileID: 0}
+    - target: {fileID: 6863555551080212463, guid: 070acb1b51efaf94d865031c8aed62e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Planet
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
@@ -710,6 +740,11 @@ PrefabInstance:
         type: 3}
       propertyPath: initialVelocity.x
       value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6863555551080212461, guid: 070acb1b51efaf94d865031c8aed62e6,
+        type: 3}
+      propertyPath: initialVelocity.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212460, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
