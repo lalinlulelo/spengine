@@ -128,7 +128,20 @@ public class OVRScreenFade : MonoBehaviour
         }
     }
 
-	void OnEnable()
+    /// <summary>
+    /// Update the StartFade to false because every time we click is turn to true
+    /// </summary>
+    void Update()
+    {
+        if (fadeOnStart)
+        {
+            StartCoroutine(Fade(1, 0));
+
+            fadeOnStart = false;
+        }
+    }
+
+    void OnEnable()
 	{
 		if (!fadeOnStart)
 		{
@@ -180,7 +193,8 @@ public class OVRScreenFade : MonoBehaviour
 			elapsedTime += Time.deltaTime;
             currentAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / fadeTime));
             SetMaterialAlpha();
-			yield return new WaitForEndOfFrame();
+
+            yield return new WaitForEndOfFrame();
 		}
 	}
 

@@ -15,6 +15,12 @@ public class Pointer : MonoBehaviour
     private GameObject m_CurrentObject = null;
 
     public GameObject Player;
+    public Animator anim;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public OVRScreenFade fade;
 
     private void Awake()
     {
@@ -26,6 +32,8 @@ public class Pointer : MonoBehaviour
     {
         SetLineColor();
         Player = GameObject.FindWithTag("Player");
+
+        fade = GameObject.Find("CenterEyeAnchor").gameObject.GetComponent<OVRScreenFade>();
     }
 
     private void OnDestroy()
@@ -130,6 +138,9 @@ public class Pointer : MonoBehaviour
             Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
             Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, m_Distance);
 
+            //Fade in every time you click
+            fade.fadeOnStart = true;
+
             return;
         }
 
@@ -139,5 +150,8 @@ public class Pointer : MonoBehaviour
         //If I click on one object, then teleport to this object
         Vector3 endPosition2 = m_CurrentObject.transform.position + Vector3.back * 3;
         Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance*1000);
+
+        //Fade in every time you click
+        fade.fadeOnStart = true;
     }
 }
