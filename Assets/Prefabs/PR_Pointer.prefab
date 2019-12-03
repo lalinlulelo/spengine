@@ -178,3 +178,6 @@ MonoBehaviour:
   m_InteractableMask:
     serializedVersion: 2
     m_Bits: 256
+  Player: {fileID: 0}
+  anim: {fileID: 0}
+  fade: {fileID: 0}

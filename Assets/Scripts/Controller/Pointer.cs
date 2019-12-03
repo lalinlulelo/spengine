@@ -15,7 +15,6 @@ public class Pointer : MonoBehaviour
     private GameObject m_CurrentObject = null;
 
     public GameObject Player;
-    public Animator anim;
 
     /// <summary>
     /// 
@@ -135,11 +134,11 @@ public class Pointer : MonoBehaviour
         //If I don't point any object just teleport 10 Units forward
         if (!m_CurrentObject)
         {
-            Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, m_Distance);
-
             //Fade in every time you click
             fade.fadeOnStart = true;
+
+            Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
+            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, m_Distance);
 
             return;
         }
@@ -147,11 +146,11 @@ public class Pointer : MonoBehaviour
         //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
         //interactable.Pressed();
 
-        //If I click on one object, then teleport to this object
-        Vector3 endPosition2 = m_CurrentObject.transform.position + Vector3.back * 3;
-        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance*1000);
-
         //Fade in every time you click
         fade.fadeOnStart = true;
+
+        //If I click on one object, then teleport to this object
+        Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
+        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance*1000);   
     }
 }
