@@ -1,24 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OVR;
 
 public class GamepadMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    private GameObject player;
+    public GameObject player;
     private Vector3 movementVector;
     private float movementSpeed = 5.0f;
 
     void Start()
     {
-        player = GameObject.Find("Main Camera");
+        //player = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
     void Update()
     {
-        movementVector.x = Input.GetAxis("LeftJoyStickX") * movementSpeed;
-        movementVector.z = Input.GetAxis("LeftJoyStickY") * movementSpeed;
+        OVRInput.Update();
+        movementVector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+        movementVector.x = movementVector.x * movementSpeed;
+        movementVector.y = movementVector.y * movementSpeed;
 
         player.transform.Translate(movementVector * Time.deltaTime);
 
