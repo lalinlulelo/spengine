@@ -217,7 +217,7 @@ public class Pointer : MonoBehaviour
         if (!m_CurrentObject)
         {
             //Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, lineEndPosition, m_Distance);
+            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, lineEndPosition, Mathf.Infinity);
 
             return;
         }
@@ -227,7 +227,7 @@ public class Pointer : MonoBehaviour
 
         //If I click on one object, then teleport to this object
         Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
-        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance * 10);
+        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, Mathf.Infinity);
     }
 
     private void ProcessIndexTriggerDown()
@@ -239,7 +239,7 @@ public class Pointer : MonoBehaviour
         if (!m_CurrentObject)
         {
             Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, m_Distance);
+            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, Mathf.Infinity);
 
             return;
         }
