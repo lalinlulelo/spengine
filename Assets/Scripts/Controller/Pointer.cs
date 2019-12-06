@@ -203,7 +203,7 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTouchpadGet()
     {
-        lineEndPosition += m_CurrentOrigin.forward * m_Distance;
+        lineEndPosition += m_CurrentOrigin.forward * 4;
     }
 
     private void ProcessTouchpadUp()
