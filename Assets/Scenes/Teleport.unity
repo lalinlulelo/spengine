@@ -228,6 +228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Distant_Stars_Dense
       objectReference: {fileID: 0}
+    - target: {fileID: 170028, guid: aed921ccd7a51cd47bcf557c266c33fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 480122, guid: aed921ccd7a51cd47bcf557c266c33fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.78326
@@ -284,6 +288,10 @@ PrefabInstance:
     - target: {fileID: 159522, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
       propertyPath: m_Name
       value: Asteroids_Dense_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 159522, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 430450, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
       propertyPath: m_LocalPosition.x
