@@ -8,6 +8,10 @@ public class PlayerEvents : MonoBehaviour
     #region Events
     public static UnityAction OnTouchpadUp = null;
     public static UnityAction OnTouchpadDown = null;
+    public static UnityAction OnTouchpadGet = null;
+    public static UnityAction OnIndexTriggerUp = null;
+    public static UnityAction OnIndexTriggerDown = null;
+    public static UnityAction OnTwoGet = null;
     public static UnityAction<OVRInput.Controller, GameObject> OnControllerSource = null;
     #endregion
 
@@ -106,6 +110,42 @@ public class PlayerEvents : MonoBehaviour
             if (OnTouchpadUp != null)
             {
                 OnTouchpadUp();
+            }
+        }
+
+        //Touchpad get
+        if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad))
+        {
+            if (OnTouchpadGet != null)
+            {
+                OnTouchpadGet();
+            }
+        }
+
+        //IndexTrigger down
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            if (OnIndexTriggerDown != null)
+            {
+                OnIndexTriggerDown();
+            }
+        }
+
+        //IndexTrigger Up
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            if (OnIndexTriggerUp != null)
+            {
+                OnIndexTriggerUp();
+            }
+        }
+
+        //Two/back get
+        if (OVRInput.Get(OVRInput.Button.Two))
+        {
+            if (OnTwoGet != null)
+            {
+                OnTwoGet();
             }
         }
     }
