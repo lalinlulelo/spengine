@@ -15,13 +15,13 @@ public class CelestialManager : MonoBehaviour
     void Start()
     {
         //Sun
-        GenerateBody(BodyType.Star, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 2000, new Vector3(2, 2, 2), materials[3]);
+        GenerateBody(BodyType.Star, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 100, new Vector3(2, 2, 2), materials[3]);
         //Earth
-        GenerateBody(BodyType.Planet, new Vector3(0, 30, 0), new Vector3(-8, 0, 0), 10, new Vector3(1, 1, 1));
+        GenerateBody(BodyType.Planet, new Vector3(0, 10, 0), new Vector3(-0.75f, 0, 0), 1, new Vector3(1, 1, 1));
         //Moon
-        GenerateBody(BodyType.Planet, new Vector3(2, 30, 0), new Vector3(-8, -1.75f, 0), 0.2f, new Vector3(0.5f, 0.5f, 0.5f), materials[2]);
+        GenerateBody(BodyType.Planet, new Vector3(1.5f, 10, 0), new Vector3(-0.75f, -0.125f, 0), 0.1f, new Vector3(0.25f, 0.25f, 0.25f), materials[2]);
         //Mars
-        GenerateBody(BodyType.Planet, new Vector3(0, 60, 0), new Vector3(6, 0, 0), 15, new Vector3(1, 1, 1), materials[1]);
+        GenerateBody(BodyType.Planet, new Vector3(0, 20, 0), new Vector3(0.5f, 0, 0), 1.5f, new Vector3(1, 1, 1), materials[1]);
     }
 
     private void GenerateBody(BodyType type, Vector3 position, Vector3 initialVelocity, float mass, Vector3 scale, Material material = null)

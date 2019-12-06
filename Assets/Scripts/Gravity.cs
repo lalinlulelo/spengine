@@ -55,6 +55,6 @@ public class Gravity : MonoBehaviour
     public Vector3 GetGravity(Vector3 attract)
     {
         Vector3 delta = transform.position - attract;
-        return delta.normalized * ((rb.mass * Constants.gravityConstant) / delta.sqrMagnitude);
+        return delta.normalized * ((rb.mass * gravManager.gravityConstant) / delta.sqrMagnitude);
     }
 }

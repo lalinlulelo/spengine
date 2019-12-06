@@ -7,6 +7,7 @@ public class GravityManager : MonoBehaviour
 {
     private static List<Gravity> bodies;
     private static bool needsUpdate = false;
+    public float gravityConstant = 1;
 
     public void AddBody(Gravity body, float mass)
     {
@@ -61,7 +62,7 @@ public class GravityManager : MonoBehaviour
             {
                 body.Body = star;
             }
-            body.SemiMajor = CalculateSemiMajor(body);
+            body.SemiMajor = CalculateSemiMajor(body, gravityConstant);
         }
     }
 
@@ -76,7 +77,7 @@ public class GravityManager : MonoBehaviour
                     if (IsInHillSphere(body1, body2))
                     {
                         body1.Body = body2;
-                        body1.SemiMajor = CalculateSemiMajor(body1);
+                        body1.SemiMajor = CalculateSemiMajor(body1, gravityConstant);
                     }
                 }
             }
@@ -101,11 +102,11 @@ public class GravityManager : MonoBehaviour
         return false;
     }
 
-    public static float CalculateSemiMajor(Gravity body1)
+    public static float CalculateSemiMajor(Gravity body1, float gravityConstant)
     {
         Gravity body2 = body1.Body;
         float orbitDistance = Vector3.Distance(body1.transform.position, body2.transform.position);
-        float semiMajor = body1.rb.velocity.sqrMagnitude / (2 * Constants.gravityConstant * body2.rb.mass) + 1 / orbitDistance;
+        float semiMajor = body1.rb.velocity.sqrMagnitude / (2 * gravityConstant * body2.rb.mass) + 1 / orbitDistance;
         semiMajor = (1 / semiMajor) / 2;
         return semiMajor;
     }

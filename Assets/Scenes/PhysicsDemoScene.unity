@@ -144,6 +144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GravityManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2663516032710742389, guid: 1709cae2013b61d4481059649b819ccc,
+        type: 3}
+      propertyPath: gravityConstant
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2663516032710742386, guid: 1709cae2013b61d4481059649b819ccc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -221,7 +226,7 @@ PrefabInstance:
     - target: {fileID: 2796113993391312339, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2796113993391312339, guid: 034a28997fff9014f83587aaa8e904c5,
         type: 3}
@@ -273,6 +278,16 @@ PrefabInstance:
       propertyPath: gravManager
       value: 
       objectReference: {fileID: 1149976803}
+    - target: {fileID: 2796113993391312343, guid: 034a28997fff9014f83587aaa8e904c5,
+        type: 3}
+      propertyPath: initialVelocity.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796113993391312342, guid: 034a28997fff9014f83587aaa8e904c5,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 034a28997fff9014f83587aaa8e904c5, type: 3}
 --- !u!1001 &4135972926650558560
@@ -295,12 +310,12 @@ PrefabInstance:
     - target: {fileID: 4135972926502110484, guid: 57d82488b5d375e44adcfa47146a715e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4135972926502110484, guid: 57d82488b5d375e44adcfa47146a715e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -120
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 4135972926502110484, guid: 57d82488b5d375e44adcfa47146a715e,
         type: 3}
@@ -359,12 +374,12 @@ PrefabInstance:
     - target: {fileID: 6967605079287085665, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6967605079287085665, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6967605079287085665, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
         type: 3}
@@ -411,11 +426,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6967605079287085665, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967605079287085665, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967605079287085665, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6967605079287085669, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
         type: 3}
       propertyPath: gravManager
       value: 
       objectReference: {fileID: 1149976803}
+    - target: {fileID: 6967605079287085669, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
+        type: 3}
+      propertyPath: initialVelocity.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967605079287085669, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
+        type: 3}
+      propertyPath: initialVelocity.y
+      value: -0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967605079287085668, guid: 4eb5830fc502faa43b05e6e29ad39cc7,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eb5830fc502faa43b05e6e29ad39cc7, type: 3}
 --- !u!1001 &6171924744460034212
@@ -490,6 +535,11 @@ PrefabInstance:
       propertyPath: gravManager
       value: 
       objectReference: {fileID: 1149976803}
+    - target: {fileID: 785644704418028276, guid: 58f83d22447b7174796f45b642c82603,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58f83d22447b7174796f45b642c82603, type: 3}
 --- !u!1001 &6863555550570725422
@@ -512,7 +562,7 @@ PrefabInstance:
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6863555551080212457, guid: 070acb1b51efaf94d865031c8aed62e6,
         type: 3}
@@ -564,5 +614,15 @@ PrefabInstance:
       propertyPath: gravManager
       value: 
       objectReference: {fileID: 1149976803}
+    - target: {fileID: 6863555551080212461, guid: 070acb1b51efaf94d865031c8aed62e6,
+        type: 3}
+      propertyPath: initialVelocity.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6863555551080212460, guid: 070acb1b51efaf94d865031c8aed62e6,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 070acb1b51efaf94d865031c8aed62e6, type: 3}
