@@ -26,6 +26,19 @@ public class CelestialManager : MonoBehaviour
         GenerateBody(BodyType.Planet, new Vector3(1.5f, 15, 0), new Vector3(0.6f, -0.15f, 0), 0.05f, new Vector3(0.25f, 0.25f, 0.25f), materials[0]);
         //Mars
         GenerateBody(BodyType.Planet, new Vector3(0, 20, 0), new Vector3(0.5f, 0, 0), 1, new Vector3(1, 1, 1), materials[3]);
+        //Asteroids
+        //Jupiter
+        GenerateBody(BodyType.Planet, new Vector3(0, 40, 0), new Vector3(0.2f, 0, 0), 20, new Vector3(3, 3, 3), materials[4]);
+        //Saturn
+        GenerateBody(BodyType.Planet, new Vector3(0, 65, 0), new Vector3(-0.15f, 0, 0), 15, new Vector3(2.5f, 2.5f, 2.5f), materials[5]);
+        //Uranus
+        GenerateBody(BodyType.Planet, new Vector3(0, -80, 0), new Vector3(-0.1f, 0, 0), 8, new Vector3(1.5f, 1.5f, 1.5f), materials[6]);
+        //Neptune
+        GenerateBody(BodyType.Planet, new Vector3(90, 0, 0), new Vector3(0, -0.08f, 0), 10, new Vector3(2, 2, 2), materials[7]);
+        //Pluto
+        GenerateBody(BodyType.Planet, new Vector3(-105, 0, 0), new Vector3(0, 0.06f, 0), 0.2f, new Vector3(0.3f, 0.3f, 0.3f), materials[8]);
+        //Charon
+        GenerateBody(BodyType.Planet, new Vector3(-105, 1, 0), new Vector3(0.1f, 0.06f, 0), 0.18f, new Vector3(0.25f, 0.25f, 0.25f), materials[10]);
     }
 
     private void GenerateBody(BodyType type, Vector3 position, Vector3 initialVelocity, float mass, Vector3 scale, Material material = null)
