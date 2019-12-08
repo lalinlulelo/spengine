@@ -77,18 +77,29 @@ public class GravityManager : MonoBehaviour
     {
         foreach (Gravity body1 in bodies)
         {
-            foreach (Gravity body2 in bodies)
+            if (body1.rb.mass < 0.05f)
             {
-                if (!body1.Equals(body2))
+                body1.Body = bodies.First();
+                body1.SemiMajor = CalculateSemiMajor(body1, gravityConstant);
+            }
+            else
+            {
+                foreach (Gravity body2 in bodies)
                 {
-                    if (IsInHillSphere(body1, body2))
+                    if (!body1.Equals(body2))
                     {
-                        body1.Body = body2;
-                        body1.SemiMajor = CalculateSemiMajor(body1, gravityConstant);
+                        if (body2.rb.mass < 0.05f)
+                        {
+                            //skip
+                        }
+                        else if (IsInHillSphere(body1, body2))
+                        {
+                            body1.Body = body2;
+                            body1.SemiMajor = CalculateSemiMajor(body1, gravityConstant);
+                        }
                     }
                 }
             }
-            
         }
     }
 
