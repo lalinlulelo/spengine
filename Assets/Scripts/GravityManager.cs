@@ -7,7 +7,13 @@ public class GravityManager : MonoBehaviour
 {
     private static List<Gravity> bodies;
     private static bool needsUpdate = false;
+    public Transform LargestBody { get; private set; }
     public float gravityConstant = 1;
+
+    private void SetLargest()
+    {
+        LargestBody = bodies.First().transform;
+    }
 
     public void AddBody(Gravity body, float mass)
     {
@@ -37,6 +43,7 @@ public class GravityManager : MonoBehaviour
             SortBodies();
             InitOrbits();
             CheckHillSpheres();
+            SetLargest();
             needsUpdate = false;
         }
     }

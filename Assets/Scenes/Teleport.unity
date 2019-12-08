@@ -481,10 +481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0bc6b2d7aa71ae4a89c56b4b7125b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1535864082}
+  target: {fileID: 0}
   distance: 15
   centreOffset: 10
   arrowRenderer: {fileID: 537904903}
+  gravManager: {fileID: 729714629}
 --- !u!1001 &729714628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -757,6 +758,8 @@ MonoBehaviour:
   angleXZ: 0
   angleXY: 0
   screenPoint: {x: 0, y: 0, z: 0}
+  arrow: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &1708620381
 MonoBehaviour:
   m_ObjectHideFlags: 0
