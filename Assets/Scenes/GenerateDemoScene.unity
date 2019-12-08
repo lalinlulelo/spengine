@@ -132,59 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a72b8db52626d1489e93c3e083b0781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &348039563
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 348039565}
-  - component: {fileID: 348039564}
-  m_Layer: 0
-  m_Name: CelestialManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &348039564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348039563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f299aeecfd40516439e3fe44f2613735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basePlanet: {fileID: 3050294030292381350, guid: 6e52b80c0c39f23478892be704b73f66,
-    type: 3}
-  baseStar: {fileID: 7238075232046954532, guid: fd3d7e003b59a9c439cf5132525968e7,
-    type: 3}
-  gravityManager: {fileID: 284632201}
-  materials:
-  - {fileID: 2100000, guid: a5686f29c588b4d45a4d144995d1bb79, type: 2}
-  - {fileID: 2100000, guid: 136188c7ae5eb184d918af05e5e29b58, type: 2}
-  - {fileID: 2100000, guid: 788bce915b0e6cc46acf753f6b418f2b, type: 2}
-  - {fileID: 2100000, guid: cf157803ca70f074483b9c5abc7e7dea, type: 2}
---- !u!4 &348039565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348039563}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &878431384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,16 +139,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2663516032710742388, guid: 1709cae2013b61d4481059649b819ccc,
-        type: 3}
-      propertyPath: m_Name
-      value: GravityManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2663516032710742389, guid: 1709cae2013b61d4481059649b819ccc,
-        type: 3}
-      propertyPath: gravityConstant
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 2663516032710742386, guid: 1709cae2013b61d4481059649b819ccc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -256,6 +193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663516032710742388, guid: 1709cae2013b61d4481059649b819ccc,
+        type: 3}
+      propertyPath: m_Name
+      value: GravityManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1709cae2013b61d4481059649b819ccc, type: 3}
@@ -328,3 +270,77 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57d82488b5d375e44adcfa47146a715e, type: 3}
+--- !u!1001 &4830795361237744542
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4830795361042862613, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_Name
+      value: CelestialManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862611, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830795361042862610, guid: 10274fae41ba6fc4792c7602ebef731e,
+        type: 3}
+      propertyPath: gravityManager
+      value: 
+      objectReference: {fileID: 284632201}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10274fae41ba6fc4792c7602ebef731e, type: 3}
