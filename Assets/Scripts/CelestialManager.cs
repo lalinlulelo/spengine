@@ -15,13 +15,17 @@ public class CelestialManager : MonoBehaviour
     void Start()
     {
         //Sun
-        GenerateBody(BodyType.Star, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 100, new Vector3(2, 2, 2), materials[3]);
+        GenerateBody(BodyType.Star, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 100, new Vector3(5, 5, 5), materials[9]);
+        //Mercury
+        GenerateBody(BodyType.Planet, new Vector3(0, 5, 0), new Vector3(-1, 0, 0), 0.15f, new Vector3(0.3f, 0.3f, 0.3f), materials[0]);
+        //Venus
+        GenerateBody(BodyType.Planet, new Vector3(0, 10, 0), new Vector3(0.75f, 0, 0), 0.6f, new Vector3(0.6f, 0.6f, 0.6f), materials[1]);
         //Earth
-        GenerateBody(BodyType.Planet, new Vector3(10, 0, 0), new Vector3(0, -0.75f, 0), 1, new Vector3(1, 1, 1));
+        GenerateBody(BodyType.Planet, new Vector3(0, 15, 0), new Vector3(0.6f, 0, 0), 1, new Vector3(1, 1, 1), materials[2]);
         //Moon
-        GenerateBody(BodyType.Planet, new Vector3(10, 1.5f, 0), new Vector3(-0.125f, -0.75f, 0), 0.1f, new Vector3(0.25f, 0.25f, 0.25f), materials[2]);
+        GenerateBody(BodyType.Planet, new Vector3(1.5f, 15, 0), new Vector3(0.6f, -0.15f, 0), 0.05f, new Vector3(0.25f, 0.25f, 0.25f), materials[0]);
         //Mars
-        GenerateBody(BodyType.Planet, new Vector3(20, 0, 0), new Vector3(0, 0.5f, 0), 1.5f, new Vector3(1, 1, 1), materials[1]);
+        GenerateBody(BodyType.Planet, new Vector3(0, 20, 0), new Vector3(0.5f, 0, 0), 1, new Vector3(1, 1, 1), materials[3]);
     }
 
     private void GenerateBody(BodyType type, Vector3 position, Vector3 initialVelocity, float mass, Vector3 scale, Material material = null)
