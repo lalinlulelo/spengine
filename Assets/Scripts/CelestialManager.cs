@@ -29,8 +29,15 @@ public class CelestialManager : MonoBehaviour
         //Asteroids
         //Jupiter
         GenerateBody(BodyType.Planet, new Vector3(0, 40, 0), new Vector3(0.2f, 0, 0), 20, new Vector3(3, 3, 3), materials[4]);
+        //Moons
+        GenerateBody(BodyType.Planet, new Vector3(2.5f, 40, 0), new Vector3(0.2f, -0.65f, 0), 0.2f, new Vector3(0.2f, 0.2f, 0.2f), materials[11]);
+        GenerateBody(BodyType.Planet, new Vector3(-3f, 40, 0), new Vector3(0.2f, -0.6f, 0), 0.2f, new Vector3(0.2f, 0.2f, 0.2f), materials[12]);
+        GenerateBody(BodyType.Planet, new Vector3(3.5f, 40, 0), new Vector3(0.2f, 0.55f, 0), 0.2f, new Vector3(0.2f, 0.2f, 0.2f), materials[13]);
+        GenerateBody(BodyType.Planet, new Vector3(-4f, 40, 0), new Vector3(0.2f, -0.5f, 0), 0.2f, new Vector3(0.2f, 0.2f, 0.2f), materials[14]);
         //Saturn
         GenerateBody(BodyType.Planet, new Vector3(0, 65, 0), new Vector3(-0.15f, 0, 0), 15, new Vector3(2.5f, 2.5f, 2.5f), materials[5]);
+        GenerateBody(BodyType.Planet, new Vector3(4f, 65, 0), new Vector3(-0.15f, -0.4f, 0), 0.12f, new Vector3(0.3f, 0.3f, 0.3f), materials[15]);
+        GenerateBody(BodyType.Planet, new Vector3(-5f, 65, 0), new Vector3(-0.15f, 0.3f, 0), 0.18f, new Vector3(0.45f, 0.45f, 0.45f), materials[16]);
         //Uranus
         GenerateBody(BodyType.Planet, new Vector3(0, -80, 0), new Vector3(-0.1f, 0, 0), 8, new Vector3(1.5f, 1.5f, 1.5f), materials[6]);
         //Neptune
