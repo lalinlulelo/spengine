@@ -87,6 +87,7 @@ public class CelestialManager : MonoBehaviour
                 break;
         }
         GameObject newPrefab = Instantiate(basePrefab, position, Quaternion.identity);
+        newPrefab.transform.rotation *= Quaternion.Euler(90, 0, 0);
         newPrefab.transform.localScale = scale;
         Gravity body = newPrefab.GetComponent<Gravity>();
         body.Velocity = initialVelocity;
