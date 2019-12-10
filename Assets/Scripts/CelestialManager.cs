@@ -23,12 +23,12 @@ public class CelestialManager : MonoBehaviour
         //Earth
         GenerateBody(BodyType.Planet, new Vector3(0, 15, 0), new Vector3(0.6f, 0, 0), 1, new Vector3(1, 1, 1), materials[2]);
         //Moon
-        GenerateBody(BodyType.Planet, new Vector3(1.5f, 15, 0), new Vector3(0.6f, -0.15f, 0), 0.05f, new Vector3(0.25f, 0.25f, 0.25f), materials[0]);
+        GenerateBody(BodyType.Planet, new Vector3(1.5f, 15, 0), new Vector3(0.6f, -0.155f, 0), 0.05f, new Vector3(0.25f, 0.25f, 0.25f), materials[0]);
         //Mars
         GenerateBody(BodyType.Planet, new Vector3(0, 20, 0), new Vector3(-0.5f, 0, 0), 0.9f, new Vector3(1, 1, 1), materials[3]);
         //Asteroids
         //GenerateBody(BodyType.Planet, new Vector3(0, 26, 0), new Vector3(0.3f, 0, 0), 0.1f, new Vector3(1, 1, 1), materials[17]);
-        GenerateAsteroidBelt(26, 1, 2, 0.53f, 200, 0.04f, new Vector3(0.2f, 0.2f, 0.2f), 2);
+        GenerateAsteroidBelt(26, 1, 2, 0.45f, 200, 0.04f, new Vector3(0.2f, 0.2f, 0.2f), 2);
         //Jupiter
         GenerateBody(BodyType.Planet, new Vector3(0, 40, 0), new Vector3(0.2f, 0, 0), 20, new Vector3(3, 3, 3), materials[4]);
         //Moons

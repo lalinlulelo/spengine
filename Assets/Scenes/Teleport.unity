@@ -211,6 +211,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &415025219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8395055638625291197, guid: 99b9b227c334df64cbcee4b493147ac5,
+    type: 3}
+  m_PrefabInstance: {fileID: 549676140925039761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &415025220 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 415025220, guid: 5585eaa5aebddbe469edf5bdf60d3bbd,
@@ -241,6 +247,12 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 8733881119807526331}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &665520910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2150695431160520285, guid: cd4fc654177aa824fbdffb1377e2775e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3306539290531085434}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &729714628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -248,6 +260,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2663516032710742388, guid: 1709cae2013b61d4481059649b819ccc,
+        type: 3}
+      propertyPath: m_Name
+      value: GravityManager
+      objectReference: {fileID: 0}
     - target: {fileID: 2663516032710742386, guid: 1709cae2013b61d4481059649b819ccc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -302,11 +319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2663516032710742388, guid: 1709cae2013b61d4481059649b819ccc,
-        type: 3}
-      propertyPath: m_Name
-      value: GravityManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1709cae2013b61d4481059649b819ccc, type: 3}
@@ -1035,6 +1047,16 @@ PrefabInstance:
       propertyPath: c
       value: 
       objectReference: {fileID: 536548262}
+    - target: {fileID: 8727239060027666746, guid: cd3819c3bb4d5e745b543685b0bdd1b0,
+        type: 3}
+      propertyPath: arrow
+      value: 
+      objectReference: {fileID: 415025219}
+    - target: {fileID: 8727239060027666746, guid: cd3819c3bb4d5e745b543685b0bdd1b0,
+        type: 3}
+      propertyPath: reticle
+      value: 
+      objectReference: {fileID: 665520910}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3819c3bb4d5e745b543685b0bdd1b0, type: 3}
 --- !u!114 &8727239060027666746 stripped
