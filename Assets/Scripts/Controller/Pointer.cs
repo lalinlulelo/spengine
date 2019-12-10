@@ -18,6 +18,7 @@ public class Pointer : MonoBehaviour
     public GameObject[] line;
     Vector3 lineEndPosition;
     public bool isPressed;
+    public GameObject reticle;
 
     /// <summary>
     /// 
@@ -25,12 +26,16 @@ public class Pointer : MonoBehaviour
     public OVRScreenFade fade;
 
     //For the button Two/Back
-    public bool controlMode;
+    private enum ControlMode { Teleport, Fly, Accelerate };
+    private ControlMode controlMode = ControlMode.Teleport;
 
     //GamepadMovement
     private Vector3 inputVector;
     private Vector3 movementVector;
-    private float movementSpeed = 15.0f;
+    private Vector3 accelDirVector;
+    private float AccelSpeed { get; set; } = 0f;
+    private const float AccelRate = 5f;
+    private float MovementSpeed { get; } = 10.0f;
     public Camera c;
 
     private void Awake()
@@ -50,7 +55,7 @@ public class Pointer : MonoBehaviour
 
         fade = GameObject.Find("CenterEyeAnchor").gameObject.GetComponent<OVRScreenFade>();
         line = GameObject.FindGameObjectsWithTag("Line");
-        controlMode = false;
+        controlMode = ControlMode.Teleport;
         isPressed = false;
     }
 
@@ -67,19 +72,25 @@ public class Pointer : MonoBehaviour
 
     private void Update()
     {
-        if(controlMode == false)
-        {            
-            Vector3 hitPoint = UpdateLine();
-
-            m_CurrentObject = UpdatePointerStatus();
-
-            OnPointerUpdate?.Invoke(hitPoint, m_CurrentObject);
+        switch (controlMode)
+        {
+            case ControlMode.Teleport:
+                TeleportMovement();
+                break;
+            case ControlMode.Fly:         
+                GamepadMovement();
+                break;
+            case ControlMode.Accelerate:
+                GamepadMovementAccel();
+                break;
         }
-        else
-        {           
-            gamepadMovement();
-            //gamepadMovementAccel();
-        }
+    }
+
+    private void TeleportMovement()
+    {
+        Vector3 hitPoint = UpdateLine();
+        m_CurrentObject = UpdatePointerStatus();
+        OnPointerUpdate?.Invoke(hitPoint, m_CurrentObject);
     }
 
     /// <summary>
@@ -120,13 +131,15 @@ public class Pointer : MonoBehaviour
         m_CurrentOrigin = controllerObject.transform;
 
         //Is the laser visible?
-        if (controller == OVRInput.Controller.Touchpad)
+        if (controller == OVRInput.Controller.Touchpad || controlMode != ControlMode.Teleport)
         {
             m_LineRenderer.enabled = false;
+            reticle.SetActive(false);
         }
         else
         {
             m_LineRenderer.enabled = true;
+            reticle.SetActive(true);
         }
     }
 
@@ -208,118 +221,111 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTouchpadUp()
     {
-        isPressed = false;
-
-        //Fade in every time you click
-        fade.fadeOnStart = true;
-
-        //If I don't point any object just teleport 10 Units forward
-        if (!m_CurrentObject)
+        if (controlMode == ControlMode.Teleport)
         {
-            //Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, lineEndPosition, Mathf.Infinity);
+            isPressed = false;
 
-            return;
+            //Fade in every time you click
+            fade.fadeOnStart = true;
+
+            //If I don't point any object just teleport 10 Units forward
+            if (!m_CurrentObject)
+            {
+                //Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
+                Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, lineEndPosition, Mathf.Infinity);
+
+                return;
+            }
+
+            //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
+            //interactable.Pressed();
+
+            //If I click on one object, then teleport to this object
+            Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
+            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, Mathf.Infinity);
         }
-
-        //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
-        //interactable.Pressed();
-
-        //If I click on one object, then teleport to this object
-        Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
-        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, Mathf.Infinity);
     }
 
     private void ProcessIndexTriggerDown()
     {
-        //Fade in every time you click
-        fade.fadeOnStart = true;
-
-        //If I don't point any object just teleport 10 Units forward
-        if (!m_CurrentObject)
+        if (controlMode == ControlMode.Teleport)
         {
-            Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, Mathf.Infinity);
+            //Fade in every time you click
+            fade.fadeOnStart = true;
 
-            return;
-        }
+            //If I don't point any object just teleport 10 Units forward
+            if (!m_CurrentObject)
+            {
+                Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
+                Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, Mathf.Infinity);
 
-        //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
-        //interactable.Pressed();
+                return;
+            }
 
-        //If I click on one object, then teleport to this object
-        Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
-        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance * 10);       
+            //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
+            //interactable.Pressed();
+
+            //If I click on one object, then teleport to this object
+            Player.transform.position = m_CurrentObject.transform.position;
+            
+        } else if (controlMode == ControlMode.Accelerate)
+        {
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
+        } else if (controlMode == ControlMode.Fly)
+        {
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
+        }   
     }
 
     private void ProcessTwoGet()
     {
         //Changing the mode 
-        if(controlMode == false)
+        if(controlMode == ControlMode.Teleport)
         {
-            controlMode = true;
-            foreach (GameObject l in line)
-            {
-                l.SetActive(false);
-            }
+            controlMode = ControlMode.Fly;
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
+            reticle.SetActive(false);
+        } else if (controlMode == ControlMode.Fly)
+        {
+            controlMode = ControlMode.Accelerate;
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
         }
-        else
+        else if (controlMode == ControlMode.Accelerate)
         {
-            controlMode = false;
-            foreach (GameObject l in line)
-            {
-                l.SetActive(true);
-            }
+            controlMode = ControlMode.Teleport;
+            
         }
     }
 
-    private void gamepadMovement()
+    private void GamepadMovement()
     {
-        OVRInput.Update();
-        movementVector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-        // movementVector = player.transform.InverseTransformVector(movementVector);
-        movementVector.x = movementVector.x * movementSpeed;
-        movementVector.z = movementVector.y * movementSpeed;
-        movementVector.y = 0;
-
-        //player.transform.position += (player.transform.forward * Time.deltaTime);
-        Player.transform.rotation = c.transform.localRotation;
-        Player.transform.Translate(movementVector * Time.deltaTime);
+        //OVRInput.Update();
+        Vector2 moveVector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+        if (moveVector.Equals(new Vector2(0, 0)))
+        {
+            return;
+        }
+        Vector3 dir = Vector3.Scale(Camera.main.transform.forward, new Vector3(moveVector.normalized.x, moveVector.normalized.y, 1));
+        Player.transform.position += dir * Time.deltaTime * MovementSpeed;
     }
 
-    private void gamepadMovementAccel()
+    private void GamepadMovementAccel()
     {
-        OVRInput.Update();
-        inputVector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-        inputVector.z = inputVector.y;
-        inputVector.y = 0;
-        if ((inputVector.x > 0.5 || inputVector.x < -0.5 && (inputVector.y > -0.5 && inputVector.z < 0.5)) || (inputVector.z > 0.5 || (inputVector.z < -0.5 && (inputVector.x > -0.5 && inputVector.x < 0.5))))
-            movementVector += inputVector;
-        if (movementVector.x > 5)
-            movementVector.x = 5;
-        if (movementVector.x < -5)
-            movementVector.x = -5;
-        if (movementVector.z > 5)
-            movementVector.z = 5;
-        if (movementVector.z < -5)
-            movementVector.z = -5;
-        //movementVector += inputVector
-        else
+        //OVRInput.Update();
+        Vector2 moveVector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+        if (!moveVector.Equals(new Vector2(0, 0)))
         {
-            if (movementVector.x < 1 && movementVector.x > -1)
-            {
-                if (movementVector.x > 0)
-                    movementVector.x -= 0.2f;
-                if (movementVector.x < 0)
-                    movementVector.x += 0.2f;
-            }
-            if (movementVector.z < 1 && movementVector.z > -1)
-                if (movementVector.z > 0)
-                    movementVector.z -= 0.2f;
-            if (movementVector.z < 0)
-                movementVector.z += 0.2f;
+            accelDirVector = Vector3.Scale(Camera.main.transform.forward, new Vector3(moveVector.normalized.x, moveVector.normalized.y, 1));
+            AccelSpeed += AccelRate * Time.deltaTime;
         }
-        Player.transform.rotation = c.transform.localRotation;
-        Player.transform.Translate(movementVector * movementSpeed * Time.deltaTime);
+        Player.transform.position += accelDirVector * Time.deltaTime * AccelSpeed;    
     }
 }
