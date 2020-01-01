@@ -14,6 +14,11 @@ public class CelestialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GenerateSetScene();
+    }
+
+    private void GenerateSetScene()
+    {
         //Sun
         GenerateBody(BodyType.Star, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 100, new Vector3(5, 5, 5), materials[9]);
         //Mercury
@@ -46,7 +51,7 @@ public class CelestialManager : MonoBehaviour
         //Neptune
         GenerateBody(BodyType.Planet, new Vector3(90, 0, 0), new Vector3(0, -0.08f, 0), 10, new Vector3(2, 2, 2), materials[7]);
         //Pluto
-        GenerateBody(BodyType.Planet, new Vector3(-105, 0, 0), new Vector3(0, 0.06f, 0), 0.2f, new Vector3(0.3f, 0.3f, 0.3f), materials[8]);
+        GenerateBody(BodyType.Planet, new Vector3(-105, 0, 0), new Vector3(0, 0.06f, 0), 0.2f, new Vector3(0.3f, 0.3f, 0.3f), materials[8], true);
         //Charon
         GenerateBody(BodyType.Planet, new Vector3(-105, 1, 0), new Vector3(0.1f, 0.06f, 0), 0.18f, new Vector3(0.25f, 0.25f, 0.25f), materials[10]);
     }
@@ -74,7 +79,7 @@ public class CelestialManager : MonoBehaviour
         }
     }
 
-    private void GenerateBody(BodyType type, Vector3 position, Vector3 initialVelocity, float mass, Vector3 scale, Material material = null)
+    private void GenerateBody(BodyType type, Vector3 position, Vector3 initialVelocity, float mass, Vector3 scale, Material material = null, bool isTarget = false)
     {
         GameObject basePrefab;
         switch (type)
@@ -93,6 +98,11 @@ public class CelestialManager : MonoBehaviour
         body.Velocity = initialVelocity;
         body.gravManager = gravityManager;
         body.initialVelocity = initialVelocity;
+        body.IsTarget = isTarget;
+        if (isTarget)
+        {
+            GravityManager.targetUpdate = true;
+        }
         Rigidbody rb = newPrefab.GetComponent<Rigidbody>();
         rb.mass = mass;
         rb.velocity = initialVelocity;

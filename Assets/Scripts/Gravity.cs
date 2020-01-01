@@ -13,6 +13,7 @@ public class Gravity : MonoBehaviour
     private Vector3 gravity;
     public Vector3 Velocity { get; set; }
     public float SemiMajor { get; set; }
+    public bool IsTarget { get; set; }
 
     void OnEnable()
     {

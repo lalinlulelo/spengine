@@ -7,8 +7,10 @@ public class GravityManager : MonoBehaviour
 {
     private static List<Gravity> bodies;
     private static bool needsUpdate = false;
+    public static bool targetUpdate = false;
     public Transform LargestBody { get; private set; }
     public float gravityConstant = 1;
+    public Transform TargetBody { get; private set; }
 
     private void SetLargest()
     {
@@ -45,6 +47,29 @@ public class GravityManager : MonoBehaviour
             CheckHillSpheres();
             SetLargest();
             needsUpdate = false;
+        }
+        if (targetUpdate)
+        {
+            FindTarget();
+            targetUpdate = false;
+        }
+    }
+
+    private void FindTarget()
+    {
+        bool foundBody = false;
+        foreach (Gravity body in bodies)
+        {
+            if (body.IsTarget)
+            {
+                TargetBody = body.transform;
+                foundBody = true;
+                break;
+            }
+        }
+        if (!foundBody)
+        {
+            TargetBody = LargestBody;
         }
     }
 
