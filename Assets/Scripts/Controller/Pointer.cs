@@ -13,6 +13,8 @@ public class Pointer : MonoBehaviour
 
     private Transform m_CurrentOrigin = null;
     private GameObject m_CurrentObject = null;
+    private bool resetLine = false;
+    private float tempDistance;
 
     public GameObject Player;
     public GameObject[] line;
@@ -57,6 +59,8 @@ public class Pointer : MonoBehaviour
         line = GameObject.FindGameObjectsWithTag("Line");
         controlMode = ControlMode.Teleport;
         isPressed = false;
+        resetLine = true;
+        tempDistance = m_Distance;
     }
 
     private void OnDestroy()
@@ -88,6 +92,16 @@ public class Pointer : MonoBehaviour
 
     private void TeleportMovement()
     {
+        Vector2 extendVector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+        if (extendVector.y == 0)
+        {
+            resetLine = true;
+        } else if (extendVector.y > 0)
+        {
+            resetLine = false;
+            tempDistance += m_Distance * extendVector.y * 0.2f;
+            lineEndPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * tempDistance);
+        }
         Vector3 hitPoint = UpdateLine();
         m_CurrentObject = UpdatePointerStatus();
         OnPointerUpdate?.Invoke(hitPoint, m_CurrentObject);
@@ -104,9 +118,10 @@ public class Pointer : MonoBehaviour
 
         //Default end
         //Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-        if (isPressed == false)
+        if (resetLine == true)
         {
             lineEndPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
+            tempDistance = m_Distance;
         }
 
         //Check hit
@@ -160,10 +175,9 @@ public class Pointer : MonoBehaviour
 
     private RaycastHit CreateRaycast(int layer)
     {
-        RaycastHit hit;
         Ray ray = new Ray(m_CurrentOrigin.position, m_CurrentOrigin.forward);
         //
-        Physics.Raycast(ray, out hit, m_Distance * 10, layer);
+        Physics.Raycast(ray, out RaycastHit hit, m_Distance * 10, layer);
         //
 
         return hit;
@@ -216,58 +230,47 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTouchpadGet()
     {
-        lineEndPosition += m_CurrentOrigin.forward * 4;
+        
     }
 
     private void ProcessTouchpadUp()
     {
         if (controlMode == ControlMode.Teleport)
         {
-            isPressed = false;
-
-            //Fade in every time you click
-            fade.fadeOnStart = true;
-
-            //If I don't point any object just teleport 10 Units forward
-            if (!m_CurrentObject)
-            {
-                //Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-                Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, lineEndPosition, Mathf.Infinity);
-
-                return;
-            }
-
-            //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
-            //interactable.Pressed();
-
-            //If I click on one object, then teleport to this object
-            Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, Mathf.Infinity);
+            DoTeleport();
         }
+    }
+
+    private void DoTeleport()
+    {
+        isPressed = false;
+
+        //Fade in every time you click
+        fade.FadeOutIn();
+
+        //If I don't point any object just teleport 10 Units forward
+        if (!m_CurrentObject)
+        {
+            //Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
+            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, lineEndPosition, Mathf.Infinity);
+
+            return;
+        }
+
+        //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
+        //interactable.Pressed();
+
+        //If I click on one object, then teleport to this object
+        Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
+        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, Mathf.Infinity);
     }
 
     private void ProcessIndexTriggerDown()
     {
         if (controlMode == ControlMode.Teleport)
         {
-            //Fade in every time you click
-            fade.fadeOnStart = true;
+            DoTeleport();
 
-            //If I don't point any object just teleport 10 Units forward
-            if (!m_CurrentObject)
-            {
-                Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-                Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, Mathf.Infinity);
-
-                return;
-            }
-
-            //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
-            //interactable.Pressed();
-
-            //If I click on one object, then teleport to this object
-            Player.transform.position = m_CurrentObject.transform.position;
-            
         } else if (controlMode == ControlMode.Accelerate)
         {
             movementVector = new Vector3(0, 0, 0);
