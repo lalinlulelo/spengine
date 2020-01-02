@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CelestialManager : MonoBehaviour
 {
@@ -8,14 +9,52 @@ public class CelestialManager : MonoBehaviour
     public GameObject baseStar;
     public GravityManager gravityManager;
     public Material[] materials;
+    public string otherScene = "";
+
+    public bool isSetScene;
 
     enum BodyType {Star, Planet};
 
     // Start is called before the first frame update
     void Start()
     {
-        //GenerateSetScene();
-        GenerateRandomScene(200, 200, 300);
+        if (isSetScene)
+        {
+            GenerateSetScene();
+        } else
+        {
+            GenerateRandomScene(200, 200, 300);
+        }
+        GravityManager.targetUpdate = true;
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.O))
+        {
+            SwapScene();
+        }
+    }
+
+    public void SwapScene()
+    {
+        SceneManager.LoadScene(otherScene, LoadSceneMode.Single);
+    }
+
+    //Deprecated
+    public void ChangeScene()
+    {
+
+        gravityManager.DestroyScene();
+        if (isSetScene)
+        {
+            GenerateRandomScene(200, 200, 300);
+            isSetScene = false;
+        } else
+        {
+            GenerateSetScene();
+            isSetScene = true;
+        }
         GravityManager.targetUpdate = true;
     }
 

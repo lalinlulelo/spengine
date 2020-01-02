@@ -178,9 +178,10 @@ MonoBehaviour:
   m_InteractableMask:
     serializedVersion: 2
     m_Bits: 256
+  celestialManager: {fileID: 0}
   Player: {fileID: 0}
   line: []
   isPressed: 0
+  reticle: {fileID: 0}
   fade: {fileID: 0}
-  controlMode: 0
   c: {fileID: 0}

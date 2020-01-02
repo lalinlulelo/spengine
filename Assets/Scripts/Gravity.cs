@@ -25,6 +25,11 @@ public class Gravity : MonoBehaviour
         gravManager.RemoveBody(this);
     }
 
+    void OnDestroy()
+    {
+        gravManager.RemoveBody(this);
+    }
+
     void Awake()
     {
         //rb.velocity = new Vector3(initialVelocity, 0, 0);

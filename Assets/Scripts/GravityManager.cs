@@ -27,6 +27,14 @@ public class GravityManager : MonoBehaviour
         needsUpdate = true;
     }
 
+    public void DestroyScene()
+    {
+        foreach (Gravity body in bodies)
+        {
+            Destroy(body);
+        }
+    }
+
     public void RemoveBody(Gravity body)
     {
         bodies.Remove(body);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Pointer : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class Pointer : MonoBehaviour
     public LayerMask m_EverythingMask = 0;
     public LayerMask m_InteractableMask = 0;
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
+    public CelestialManager celestialManager;
+    public Text debugText;
 
     private Transform m_CurrentOrigin = null;
     private GameObject m_CurrentObject = null;
     private bool resetLine = false;
     private float tempDistance;
+    private bool isTwoHeld;
 
     public GameObject Player;
     public GameObject[] line;
@@ -30,6 +34,7 @@ public class Pointer : MonoBehaviour
     //For the button Two/Back
     private enum ControlMode { Teleport, Fly, Accelerate };
     private ControlMode controlMode = ControlMode.Teleport;
+    private float holdCounter = 0;
 
     //GamepadMovement
     private Vector3 inputVector;
@@ -48,6 +53,7 @@ public class Pointer : MonoBehaviour
         PlayerEvents.OnTouchpadGet += ProcessTouchpadGet;
         PlayerEvents.OnIndexTriggerDown += ProcessIndexTriggerDown;
         PlayerEvents.OnTwoGet += ProcessTwoGet;
+        PlayerEvents.OnTwoUp += ProcessTwoUp;
     }
 
     public void Start()
@@ -61,6 +67,7 @@ public class Pointer : MonoBehaviour
         isPressed = false;
         resetLine = true;
         tempDistance = m_Distance;
+        //debugText.text = "Text";
     }
 
     private void OnDestroy()
@@ -198,34 +205,27 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTouchpadDown()
     {
-        /*
-        //If I don't point any object just teleport 10 Units forward
-        if (!m_CurrentObject)
+        //Changing the mode 
+        if (controlMode == ControlMode.Teleport)
         {
-            //Fade in every time you click
-            fade.fadeOnStart = true;
-
-            Vector3 endPosition = m_CurrentOrigin.position + (m_CurrentOrigin.forward * m_Distance);
-            Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition, m_Distance);
-
-            return;
+            controlMode = ControlMode.Fly;
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
+            reticle.SetActive(false);
         }
+        else if (controlMode == ControlMode.Fly)
+        {
+            controlMode = ControlMode.Accelerate;
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
+        }
+        else if (controlMode == ControlMode.Accelerate)
+        {
+            controlMode = ControlMode.Teleport;
 
-        //Interactable interactable = m_CurrentObject.GetComponent<Interactable>();
-        //interactable.Pressed();
-
-        //Fade in every time you click
-        fade.fadeOnStart = true;
-
-        //If I click on one object, then teleport to this object
-        Vector3 endPosition2 = m_CurrentObject.transform.position - (m_CurrentOrigin.forward * 3);
-        Player.transform.position = Vector3.MoveTowards(m_CurrentOrigin.position, endPosition2, m_Distance * 10);
-        */
-
-
-        isPressed = true;
-
-        //lineEndPosition = m_CurrentOrigin.forward * m_Distance;
+        }
     }
 
     private void ProcessTouchpadGet()
@@ -235,10 +235,7 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTouchpadUp()
     {
-        if (controlMode == ControlMode.Teleport)
-        {
-            DoTeleport();
-        }
+        
     }
 
     private void DoTeleport()
@@ -286,26 +283,12 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTwoGet()
     {
-        //Changing the mode 
-        if(controlMode == ControlMode.Teleport)
-        {
-            controlMode = ControlMode.Fly;
-            movementVector = new Vector3(0, 0, 0);
-            AccelSpeed = 0;
-            accelDirVector = new Vector3(0, 0, 0);
-            reticle.SetActive(false);
-        } else if (controlMode == ControlMode.Fly)
-        {
-            controlMode = ControlMode.Accelerate;
-            movementVector = new Vector3(0, 0, 0);
-            AccelSpeed = 0;
-            accelDirVector = new Vector3(0, 0, 0);
-        }
-        else if (controlMode == ControlMode.Accelerate)
-        {
-            controlMode = ControlMode.Teleport;
-            
-        }
+        celestialManager.SwapScene();
+    }
+
+    private void ProcessTwoUp()
+    {
+        
     }
 
     private void GamepadMovement()
