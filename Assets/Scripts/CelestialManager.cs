@@ -14,7 +14,9 @@ public class CelestialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateSetScene();
+        //GenerateSetScene();
+        GenerateRandomScene(200, 200, 300);
+        GravityManager.targetUpdate = true;
     }
 
     private void GenerateSetScene()
@@ -54,6 +56,45 @@ public class CelestialManager : MonoBehaviour
         GenerateBody(BodyType.Planet, new Vector3(-105, 0, 0), new Vector3(0, 0.06f, 0), 0.2f, new Vector3(0.3f, 0.3f, 0.3f), materials[8], true);
         //Charon
         GenerateBody(BodyType.Planet, new Vector3(-105, 1, 0), new Vector3(0.1f, 0.06f, 0), 0.18f, new Vector3(0.25f, 0.25f, 0.25f), materials[10]);
+    }
+
+    private void GenerateRandomScene(float radius, float bodies, float starMass)
+    {
+        //Make a star
+        GenerateBody(BodyType.Star, new Vector3(0, 0, 0), new Vector3(0, 0, 0), starMass, new Vector3(5, 5, 5), materials[9]);
+        //Generate remaining bodies randomly
+        int chosenType;
+        int materialChoice;
+        float scale;
+        float chosenMass;
+        for (int i=0; i<bodies; i++)
+        {
+            chosenType = Random.Range(0, 100);
+            if (chosenType == 0)
+            {
+                chosenMass = RandomDouble(0.005f, 0.1f);
+                scale = (chosenMass / 0.1f) * 0.5f;
+                GenerateAsteroidBelt(RandomDouble(5, radius), RandomDouble(1, 5), RandomDouble(1, 3),
+                    RandomDouble(0.1f, 1), Random.Range(30, 200), chosenMass, new Vector3(scale, scale, scale), Random.Range(1, 4));
+            }
+            else
+            {
+                chosenMass = RandomDouble(0.1f, starMass / 4);
+                scale = chosenMass / (starMass / 4) * 3;
+                materialChoice = Random.Range(0, materials.Length);
+                GenerateBody(BodyType.Planet, RandomVector3(-radius, radius), RandomVector3(-1, 1), chosenMass, new Vector3(scale, scale, scale), materials[materialChoice]);
+            }
+        }
+    }
+
+    private float RandomDouble(float min, float max)
+    {
+        return Random.Range(min, max);
+    }
+
+    private Vector3 RandomVector3(float min, float max)
+    {
+        return new Vector3(RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max));
     }
 
     private void GenerateAsteroidBelt(float radius, float radiusVariance, float angleVariance, float initialVelocity, float maxAsteroids, float mass, Vector3 scale, int layers)
