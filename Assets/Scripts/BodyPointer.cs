@@ -22,7 +22,7 @@ public class BodyPointer : MonoBehaviour
     {
         if (target == null)
         {
-            tempTarget = gravManager.LargestBody;
+            tempTarget = gravManager.TargetBody;
         } else
         {
             tempTarget = target.transform;

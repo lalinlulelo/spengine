@@ -12,6 +12,7 @@ public class PlayerEvents : MonoBehaviour
     public static UnityAction OnIndexTriggerUp = null;
     public static UnityAction OnIndexTriggerDown = null;
     public static UnityAction OnTwoGet = null;
+    public static UnityAction OnTwoUp = null;
     public static UnityAction<OVRInput.Controller, GameObject> OnControllerSource = null;
     #endregion
 
@@ -141,11 +142,20 @@ public class PlayerEvents : MonoBehaviour
         }
 
         //Two/back get
-        if (OVRInput.Get(OVRInput.Button.Two))
+        if (OVRInput.GetDown(OVRInput.Button.Two))
         {
             if (OnTwoGet != null)
             {
                 OnTwoGet();
+            }
+        }
+
+        //Two/back up
+        if (OVRInput.GetUp(OVRInput.Button.Two))
+        {
+            if (OnTwoGet != null)
+            {
+                OnTwoUp();
             }
         }
     }

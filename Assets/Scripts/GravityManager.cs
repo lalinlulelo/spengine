@@ -2,13 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GravityManager : MonoBehaviour
 {
     private static List<Gravity> bodies;
     private static bool needsUpdate = false;
+    public static bool targetUpdate = false;
     public Transform LargestBody { get; private set; }
     public float gravityConstant = 1;
+    public Transform TargetBody { get; private set; }
+    public Text debugText;
+    private int[] taskSet;
+    private int taskPos;
+    private float taskTimer;
+
+    private void Start()
+    {
+        taskSet = new int[3] { 1, 3, 0 };
+        taskPos = -1;
+        taskTimer = 0;
+    }
+
+    void Update()
+    {
+        taskTimer += Time.deltaTime;
+    }
+
+    public void AdvanceTask()
+    {
+        taskPos++;
+        if (taskPos == taskSet.Length)
+        {
+            
+        }
+        else
+        {
+            TargetBody.GetComponent<Gravity>().IsTarget = false;
+            bodies.ElementAt(taskSet[taskPos]).IsTarget = true;
+        }
+        debugText.text = taskTimer.ToString();
+        taskTimer = 0;
+        targetUpdate = true;      
+    }
 
     private void SetLargest()
     {
@@ -23,6 +59,14 @@ public class GravityManager : MonoBehaviour
         }
         bodies.Add(body);
         needsUpdate = true;
+    }
+
+    public void DestroyScene()
+    {
+        foreach (Gravity body in bodies)
+        {
+            Destroy(body);
+        }
     }
 
     public void RemoveBody(Gravity body)
@@ -45,6 +89,29 @@ public class GravityManager : MonoBehaviour
             CheckHillSpheres();
             SetLargest();
             needsUpdate = false;
+        }
+        if (targetUpdate)
+        {
+            FindTarget();
+            targetUpdate = false;
+        }
+    }
+
+    private void FindTarget()
+    {
+        bool foundBody = false;
+        foreach (Gravity body in bodies)
+        {
+            if (body.IsTarget)
+            {
+                TargetBody = body.transform;
+                foundBody = true;
+                break;
+            }
+        }
+        if (!foundBody)
+        {
+            TargetBody = LargestBody;
         }
     }
 
