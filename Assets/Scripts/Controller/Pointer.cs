@@ -95,6 +95,20 @@ public class Pointer : MonoBehaviour
                 GamepadMovementAccel();
                 break;
         }
+        if (celestialManager.isSetScene)
+        {
+            CheckTasks();
+        }
+    }
+
+    private void CheckTasks()
+    {
+        Transform targetBody = celestialManager.gravityManager.TargetBody;
+        float dist = Vector3.Distance(Player.transform.position, targetBody.position);
+        if (dist <= targetBody.localScale.x * 2 + 1)
+        {
+            celestialManager.gravityManager.AdvanceTask();
+        }
     }
 
     private void TeleportMovement()
