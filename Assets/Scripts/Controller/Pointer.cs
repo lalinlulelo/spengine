@@ -303,7 +303,13 @@ public class Pointer : MonoBehaviour
             movementVector = new Vector3(0, 0, 0);
             AccelSpeed = 0;
             accelDirVector = new Vector3(0, 0, 0);
-        }   
+        } else if (controlMode == ControlMode.TeleportFly)
+        {
+            DoTeleport();
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
+        }
     }
 
     private void ProcessTwoGet()
