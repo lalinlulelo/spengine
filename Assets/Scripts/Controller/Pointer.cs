@@ -32,7 +32,7 @@ public class Pointer : MonoBehaviour
     public OVRScreenFade fade;
 
     //For the button Two/Back
-    private enum ControlMode { Teleport, Fly, Accelerate };
+    private enum ControlMode { Teleport, Fly, Accelerate, TeleportFly };
     private ControlMode controlMode = ControlMode.Teleport;
     private float holdCounter = 0;
 
