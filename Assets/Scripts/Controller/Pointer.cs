@@ -94,6 +94,10 @@ public class Pointer : MonoBehaviour
             case ControlMode.Accelerate:
                 GamepadMovementAccel();
                 break;
+            case ControlMode.TeleportFly:
+                TeleportMovement();
+                GamepadMovement();
+                break;
         }
         if (celestialManager.isSetScene)
         {
@@ -237,8 +241,15 @@ public class Pointer : MonoBehaviour
         }
         else if (controlMode == ControlMode.Accelerate)
         {
-            controlMode = ControlMode.Teleport;
+            controlMode = ControlMode.TeleportFly;
+            movementVector = new Vector3(0, 0, 0);
+            AccelSpeed = 0;
+            accelDirVector = new Vector3(0, 0, 0);
 
+        }
+        else if (controlMode == ControlMode.TeleportFly)
+        {
+            controlMode = ControlMode.Teleport;
         }
     }
 
